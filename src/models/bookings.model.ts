@@ -1,74 +1,51 @@
-// rooms-model.ts - A mongoose model
+// bookings-model.ts - A mongoose model
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import RoomStatusEnum from "../constants/room-status.enum";
-import RoomTypeEnum from "../constants/room-type.enum";
+import BookingStatus, {
+  BookingStatusList,
+} from "../constants/booking-status.enum";
 import { Application } from "../declarations";
 import { Model, Mongoose } from "mongoose";
 
 export default function (app: Application): Model<any> {
-  const modelName = "rooms";
+  const modelName = "bookings";
   const mongooseClient: Mongoose = app.get("mongooseClient");
   const { Schema } = mongooseClient;
+  const { ObjectId } = Schema.Types;
+
   const schema = new Schema(
     {
-      roomNumber: {
-        type: String,
-        required: true,
-        unique: true,
-      },
-      floor: {
-        type: Schema.Types.ObjectId,
-        ref: "floors",
-        required: true,
-      },
-      roomType: {
-        type: String,
-        enum: RoomTypeEnum,
+      user: {
+        /**
+         * @todo
+         * There can be high profile guests whose bookking is to be done by
+         * the officials.Hence a user account wont be available
+         * so a generalized dummy user to be created and ported here,
+         * can only be done via SUPER_ADMIN
+         */
+        type: ObjectId,
+        ref: "users",
         required: true,
       },
-      capacity: {
-        type: Number,
+      room: {
+        type: ObjectId,
+        ref: "bookings",
+        required: true,
+      },
+      approvedBy: {
+        type: ObjectId,
+        ref: "users",
         required: true,
       },
       status: {
         type: String,
-        enum: RoomStatusEnum,
-        default: RoomStatusEnum.AVAILABLE,
+        enum: BookingStatusList,
+        default: BookingStatus.PENDING,
       },
-      pricePerNight: {
-        type: Number,
-      },
-      description: {
-        type: String,
-      },
-      images: [
-        {
-          type: String,
-        },
-      ],
-      amenities: [
-        {
-          type: String,
-        },
-      ],
-      createdBy: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-        required: true,
-      },
-      deleted: {
+      doneByAdmin: {
         type: Boolean,
-        index: true,
         default: false,
-      },
-      deletedBy: {
-        type: Schema.Types.ObjectId,
-        ref: "users",
-      },
-      deletedAt: {
-        type: Date,
       },
     },
     {
