@@ -1,5 +1,7 @@
-import * as feathersAuthentication from '@feathersjs/authentication';
-import * as local from '@feathersjs/authentication-local';
+import * as feathersAuthentication from "@feathersjs/authentication";
+import * as local from "@feathersjs/authentication-local";
+import RoleGuard from "../../hooks/RoleGuard";
+import RolesEnum from "../../constants/roles.enum";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = feathersAuthentication.hooks;
@@ -8,26 +10,26 @@ const { hashPassword, protect } = local.hooks;
 export default {
   before: {
     all: [],
-    find: [ authenticate('jwt') ],
-    get: [ authenticate('jwt') ],
-    create: [ hashPassword('password') ],
-    update: [ hashPassword('password'),  authenticate('jwt') ],
-    patch: [ hashPassword('password'),  authenticate('jwt') ],
-    remove: [ authenticate('jwt') ]
+    find: [authenticate("jwt")],
+    get: [authenticate("jwt")],
+    create: [hashPassword("password")],
+    update: [hashPassword("password"), authenticate("jwt")],
+    patch: [hashPassword("password"), authenticate("jwt")],
+    remove: [authenticate("jwt")],
   },
 
   after: {
-    all: [ 
+    all: [
       // Make sure the password field is never sent to the client
       // Always must be the last hook
-      protect('password')
+      protect("password"),
     ],
     find: [],
     get: [],
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -37,6 +39,6 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };

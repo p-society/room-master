@@ -9,7 +9,6 @@ import RolesEnum, { RolesEnumList } from "../constants/roles.enum";
 export default function (app: Application): Model<any> {
   const modelName = "users";
   const mongooseClient: Mongoose = app.get("mongooseClient");
-  const { ObjectId } = mongooseClient.Schema.Types;
   const schema = new mongooseClient.Schema(
     {
       // avatar: {
@@ -31,9 +30,6 @@ export default function (app: Application): Model<any> {
         required: true,
       },
       password: {
-        type: String,
-      },
-      designation: {
         type: String,
       },
       type: {

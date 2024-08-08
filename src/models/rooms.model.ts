@@ -32,11 +32,6 @@ export default function (app: Application): Model<any> {
         type: Number,
         required: true,
       },
-      status: {
-        type: String,
-        enum: RoomStatusEnum,
-        default: RoomStatusEnum.AVAILABLE,
-      },
       pricePerNight: {
         type: Number,
       },

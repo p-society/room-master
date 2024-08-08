@@ -30,22 +30,43 @@ export default function (app: Application): Model<any> {
       },
       room: {
         type: ObjectId,
-        ref: "bookings",
+        ref: "rooms",
         required: true,
       },
+      dates: [
+        {
+          type: Date,
+        },
+      ],
       approvedBy: {
         type: ObjectId,
         ref: "users",
         required: true,
+      },
+      doneByAdmin: {
+        type: Boolean,
+        default: false,
+      },
+      paid: {
+        type: Boolean,
+        default: false,
       },
       status: {
         type: String,
         enum: BookingStatusList,
         default: BookingStatus.PENDING,
       },
-      doneByAdmin: {
+      deleted: {
         type: Boolean,
+        index: true,
         default: false,
+      },
+      deletedBy: {
+        type: ObjectId,
+        ref: "users",
+      },
+      deletedAt: {
+        type: Date,
       },
     },
     {

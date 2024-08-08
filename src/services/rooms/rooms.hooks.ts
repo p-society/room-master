@@ -1,18 +1,23 @@
-import { HooksObject } from '@feathersjs/feathers';
-import * as authentication from '@feathersjs/authentication';
+import { HooksObject } from "@feathersjs/feathers";
+import * as authentication from "@feathersjs/authentication";
+import setCreatedBy from "../../hooks/setCreatedBy";
+import { discard } from "feathers-hooks-common";
+import handleSoftDelete from "../../hooks/handleSoftDelete";
+import RoleGuard from "../../hooks/RoleGuard";
+import RolesEnum from "../../constants/roles.enum";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
 export default {
   before: {
-    all: [ authenticate('jwt') ],
-    find: [],
-    get: [],
-    create: [],
+    all: [authenticate("jwt")],
+    find: [handleSoftDelete()],
+    get: [handleSoftDelete()],
+    create: [RoleGuard(RolesEnum.SUPER_ADMIN), setCreatedBy()],
     update: [],
-    patch: [],
-    remove: []
+    patch: [RoleGuard(RolesEnum.SUPER_ADMIN), handleSoftDelete()],
+    remove: [RoleGuard(RolesEnum.SUPER_ADMIN), handleSoftDelete()],
   },
 
   after: {
@@ -22,7 +27,7 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -32,6 +37,6 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
