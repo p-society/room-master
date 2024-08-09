@@ -42,15 +42,11 @@ export default function (app: Application): void {
       });
 
       const tmpl: string = forgotPassword["en"].render({
-        username: user[0].username,
+        firstName: user[0].firstName,
         otp: OTP,
         expiration: EXPIRATION_OFFSET, //template has minutes
       });
-      await new Mailer().sendPasswordResetOTP(
-        [email],
-        "Reset Your Password",
-        tmpl
-      );
+      await new Mailer().send([email], "Reset Your Password", tmpl);
       res.json({
         message: "OTP sent successfully on E-mail Id",
       });
