@@ -29,7 +29,7 @@
     "dev": "ts-node-dev --no-notify src/",
     "start": "yarn run compile && node lib/",
     "mocha": "mocha --require ts-node/register --require source-map-support/register \"test/**/*.ts\" --recursive --exit",
-    "compile": "shx rm -rf lib/ && tsc",
+    "compile": "shx rm -rf lib/ && chmod u+rwx ./scripts/decoratorfixer.sh && ./scripts/decoratorfixer.sh && tsc",
     "prepare": "husky"
   },
   "standard": {
@@ -83,6 +83,7 @@
     "husky": "^9.0.11",
     "jest": "^29.7.0",
     "shx": "^0.3.4",
+    "socket.io-parser": "^3.3.4",
     "ts-jest": "^29.1.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.7.3"
