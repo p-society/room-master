@@ -1,12 +1,12 @@
-import { BadRequest } from "@feathersjs/errors";
-import { Application } from "@feathersjs/express";
-import { Request, Response } from "express";
-import Mailer from "../../mailer";
-import forgotPassword from "../../templates/forgot-password/index";
+import { BadRequest } from '@feathersjs/errors';
+import { Application } from '@feathersjs/express';
+import { Request, Response } from 'express';
+import Mailer from '../../mailer';
+import forgotPassword from '../../templates/forgot-password/index';
 
 const EXPIRATION_OFFSET: number = 10; // 10 Minutes
 export default function (app: Application): void {
-  app.use("/forgot-password", async function (req: Request, res: Response) {
+  app.use('/forgot-password', async function (req: Request, res: Response) {
     try {
       const { email } = req.body;
       /**
@@ -15,9 +15,9 @@ export default function (app: Application): void {
        */
       //   const { lang } = req.query;
 
-      if (!email) throw new BadRequest("Email not provided");
+      if (!email) throw new BadRequest('Email not provided');
 
-      const user = await app.service("users")._find({
+      const user = await app.service('users')._find({
         query: {
           email: email,
           $limit: 1,
@@ -25,7 +25,7 @@ export default function (app: Application): void {
         paginate: false,
       });
 
-      if (user.length === 0) throw new Error("No user found");
+      if (user.length === 0) throw new Error('No user found');
       // user exists,so create OTP
 
       const today = new Date();
@@ -34,21 +34,21 @@ export default function (app: Application): void {
 
       const OTP = generateOTP();
 
-      await app.service("reset-password")._create({
+      await app.service('reset-password')._create({
         user: user[0]._id,
         otp: OTP,
         email: email,
         expiresAt: expirationDate,
       });
 
-      const tmpl: string = forgotPassword["en"].render({
+      const tmpl: string = forgotPassword['en'].render({
         firstName: user[0].firstName,
         otp: OTP,
         expiration: EXPIRATION_OFFSET, //template has minutes
       });
-      await new Mailer().send([email], "Reset Your Password", tmpl);
+      await new Mailer().send([email], 'Reset Your Password', tmpl);
       res.json({
-        message: "OTP sent successfully on E-mail Id",
+        message: 'OTP sent successfully on E-mail Id',
       });
     } catch (error: any) {
       console.error(error);
@@ -58,8 +58,8 @@ export default function (app: Application): void {
 }
 
 function generateOTP() {
-  const digits = "0123456789";
-  let OTP = "";
+  const digits = '0123456789';
+  let OTP = '';
 
   for (let i = 0; i < 4; i++) {
     const randomIndex = Math.floor(Math.random() * digits.length);

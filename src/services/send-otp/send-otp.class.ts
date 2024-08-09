@@ -1,7 +1,7 @@
-import { Params, ServiceMethods } from "@feathersjs/feathers";
-import { Application } from "../../declarations";
-import OTPTempl from "../../templates/otp/index";
-import Mailer from "../../mailer";
+import { Params, ServiceMethods } from '@feathersjs/feathers';
+import { Application } from '../../declarations';
+import OTPTempl from '../../templates/otp/index';
+import Mailer from '../../mailer';
 // import axios from 'axios';
 // import {PublishCommand, SNSClient} from '@aws-sdk/client-sns';
 
@@ -14,8 +14,8 @@ interface Data {
 interface ServiceOptions {}
 
 function generateOTP() {
-  const digits = "0123456789";
-  let OTP = "";
+  const digits = '0123456789';
+  let OTP = '';
 
   for (let i = 0; i < 4; i++) {
     const randomIndex = Math.floor(Math.random() * digits.length);
@@ -59,15 +59,15 @@ export class SendOtp implements ServiceMethods<Data> {
   // @ts-ignore
   async create(
     data: Data,
-    params?: Params
+    _params?: Params
   ): Promise<{ message: string; isNewUser: boolean }> {
-    const otpService = this.app.service("otp");
-    const userService = this.app.service("users");
+    const otpService = this.app.service('otp');
+    const userService = this.app.service('users');
 
     const otp = generateOTP();
 
     await otpService._create({
-      type: "email",
+      type: 'email',
       dest: data.email,
       otp,
     });
@@ -81,7 +81,7 @@ export class SendOtp implements ServiceMethods<Data> {
 
     const EXPIRATION_OFFSET: number = 10; // 10 Minutes
 
-    const tmpl: string = OTPTempl["en"].render({
+    const tmpl: string = OTPTempl['en'].render({
       firstName: user[0].firstName,
       otp,
       expiration: EXPIRATION_OFFSET, //template has minutes
@@ -89,12 +89,12 @@ export class SendOtp implements ServiceMethods<Data> {
 
     await new Mailer().send(
       [data.email],
-      "OTP Verfication for IIIT-Bh Room Master",
+      'OTP Verfication for IIIT-Bh Room Master',
       tmpl
     );
 
     return {
-      message: "OTP Send Successfully",
+      message: 'OTP Send Successfully',
       isNewUser: !Boolean(user),
     };
   }

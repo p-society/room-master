@@ -1,4 +1,4 @@
-import Twig from "twig";
+import Twig from 'twig';
 // import fs from 'fs';
 
 // require.extensions['.twig'] = function (module, filename) {

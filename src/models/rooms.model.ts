@@ -2,14 +2,13 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import RoomStatusEnum from "../constants/room-status.enum";
-import RoomTypeEnum from "../constants/room-type.enum";
-import { Application } from "../declarations";
-import { Model, Mongoose } from "mongoose";
+import RoomTypeEnum from '../constants/room-type.enum';
+import { Application } from '../declarations';
+import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = "rooms";
-  const mongooseClient: Mongoose = app.get("mongooseClient");
+  const modelName = 'rooms';
+  const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema(
     {
@@ -20,7 +19,7 @@ export default function (app: Application): Model<any> {
       },
       floor: {
         type: Schema.Types.ObjectId,
-        ref: "floors",
+        ref: 'floors',
         required: true,
       },
       roomType: {
@@ -50,7 +49,7 @@ export default function (app: Application): Model<any> {
       ],
       createdBy: {
         type: Schema.Types.ObjectId,
-        ref: "users",
+        ref: 'users',
         required: true,
       },
       deleted: {
@@ -60,7 +59,7 @@ export default function (app: Application): Model<any> {
       },
       deletedBy: {
         type: Schema.Types.ObjectId,
-        ref: "users",
+        ref: 'users',
       },
       deletedAt: {
         type: Date,

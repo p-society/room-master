@@ -1,8 +1,8 @@
-import { BadRequest, NotAuthenticated } from "@feathersjs/errors";
-import { Hook, HookContext } from "@feathersjs/feathers";
-import BookingStatus from "../constants/booking-status.enum";
+import { BadRequest, NotAuthenticated } from '@feathersjs/errors';
+import { Hook, HookContext } from '@feathersjs/feathers';
+import BookingStatus from '../constants/booking-status.enum';
 
-export default (options = {}): Hook => {
+export default (): Hook => {
   /**
    * @zakhaev26
    * @abstract
@@ -19,14 +19,14 @@ export default (options = {}): Hook => {
     if (!user) throw new NotAuthenticated();
     if (!data.room || !data.dates)
       throw new BadRequest(
-        "Please provide room and dates to create the booking."
+        'Please provide room and dates to create the booking.'
       );
 
-    let { room, dates } = data;
-
+    let { dates } = data;
+    const { room } = data;
     if (!Array.isArray(dates)) dates = [dates];
     try {
-      const existingBookings = await app.service("bookings")._find({
+      const existingBookings = await app.service('bookings')._find({
         query: {
           room,
           dates: {
@@ -42,7 +42,7 @@ export default (options = {}): Hook => {
 
       if (existingBookings.length > 0) {
         throw new BadRequest(
-          "This room is already booked for the specified dates."
+          'This room is already booked for the specified dates.'
         );
       }
 
