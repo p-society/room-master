@@ -1,7 +1,7 @@
 enum BookingStatus {
-  APPROVED = "approved",
-  CANCELLED = "cancelled",
-  PENDING = "pending",
+  APPROVED = 'approved',
+  CANCELLED = 'cancelled',
+  PENDING = 'pending',
 }
 
 export const BookingStatusList = [

@@ -2,13 +2,13 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import { Application } from "../declarations";
-import { Model, Mongoose } from "mongoose";
-import RolesEnum, { RolesEnumList } from "../constants/roles.enum";
+import { Application } from '../declarations';
+import { Model, Mongoose } from 'mongoose';
+import RolesEnum, { RolesEnumList } from '../constants/roles.enum';
 
 export default function (app: Application): Model<any> {
-  const modelName = "users";
-  const mongooseClient: Mongoose = app.get("mongooseClient");
+  const modelName = 'users';
+  const mongooseClient: Mongoose = app.get('mongooseClient');
   const schema = new mongooseClient.Schema(
     {
       // avatar: {
@@ -40,7 +40,7 @@ export default function (app: Application): Model<any> {
       },
       gender: {
         type: String,
-        enum: ["male", "female", "other"],
+        enum: ['male', 'female', 'other'],
       },
       data: {
         type: Object,

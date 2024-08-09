@@ -2,16 +2,16 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import { Application } from "../declarations";
-import { Model, Mongoose } from "mongoose";
+import { Application } from '../declarations';
+import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = "otp";
-  const mongooseClient: Mongoose = app.get("mongooseClient");
+  const modelName = 'otp';
+  const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const schema = new Schema<any>(
     {
-      type: { type: String, enum: ["mobile", "email"], default: "mobile" },
+      type: { type: String, enum: ['mobile', 'email'], default: 'mobile' },
       dest: { type: String, required: true },
       otp: { type: String, required: true },
     },

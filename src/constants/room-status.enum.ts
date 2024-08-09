@@ -1,8 +1,8 @@
 enum RoomStatusEnum {
-  AVAILABLE = "available",
-  OCCUPIED = "occupied",
-  CLEANING = "cleaning",
-  MAINTAINENCE = "maintenance",
+  AVAILABLE = 'available',
+  OCCUPIED = 'occupied',
+  CLEANING = 'cleaning',
+  MAINTAINENCE = 'maintenance',
 }
 
 export const RoomStatusList = [

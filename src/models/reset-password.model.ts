@@ -2,19 +2,19 @@
 //
 // See http://mongoosejs.com/docs/models.html
 // for more of what you can do here.
-import { Application } from "../declarations";
-import { Model, Mongoose } from "mongoose";
+import { Application } from '../declarations';
+import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = "resetPassword";
-  const mongooseClient: Mongoose = app.get("mongooseClient");
+  const modelName = 'resetPassword';
+  const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const { ObjectId } = Schema.Types;
   const schema = new Schema(
     {
       user: {
         type: ObjectId,
-        ref: "users",
+        ref: 'users',
         required: true,
       },
       otp: {

@@ -1,4 +1,3 @@
-import { HooksObject } from '@feathersjs/feathers';
 import findAndResetPass from './hook/find-and-reset-pass';
 
 export default {
@@ -9,7 +8,7 @@ export default {
     create: [findAndResetPass()],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   after: {
@@ -19,7 +18,7 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
+    remove: [],
   },
 
   error: {
@@ -29,6 +28,6 @@ export default {
     create: [],
     update: [],
     patch: [],
-    remove: []
-  }
+    remove: [],
+  },
 };
