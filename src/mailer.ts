@@ -31,7 +31,7 @@ export default class Mailer {
     });
   }
 
-  public async sendPasswordResetOTP(
+  public async send(
     recipients: string[],
     subject: string,
     templ: string,

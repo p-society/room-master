@@ -1,4 +1,19 @@
-<!DOCTYPE html>
+import Twig from "twig";
+// import fs from 'fs';
+
+// require.extensions['.twig'] = function (module, filename) {
+// 	module.exports = fs.readFileSync(filename, 'utf8');
+// };
+
+// // @ts-ignore
+// import en from './en/forgot-password.html.twig';
+// // @ts-ignore
+// import fr from './fr/forgot-password.html.twig';
+
+// @temporarily keeping the twigfiles here due to build issues,
+// @todo: find a way to get the templates dir in build
+
+const en = `<!DOCTYPE html>
 <html>
 
 <head>
@@ -57,16 +72,23 @@
     </div>
     <div class="content">
       <p>Hi {{ firstName }},</p>
-      <p>Thank you for signing up with Roomaster - IIIT-BH. To complete your registration, please use the following OTP:</p>
+      <p>Thank you for signing up with Room Master - IIIT-BH. To complete your registration, please use the following OTP:</p>
       <div class="otp">{{ otp }}</div>
       <p>This OTP is valid for the next {{ expiration }} minutes. Please do not share this OTP with anyone.</p>
       <p>If you did not request this OTP, please ignore this email or contact our support team for assistance.</p>
     </div>
     <div class="footer">
-      <p>Best regards,<br>Roomaster Team</p>
+      <p>Best regards,<br>Room Master Team</p>
       <p>Note: This is an automated email. Please do not reply to this email.</p>
     </div>
   </div>
 </body>
 
 </html>
+`;
+
+export default {
+  en: Twig.twig({
+    data: en,
+  }),
+};
