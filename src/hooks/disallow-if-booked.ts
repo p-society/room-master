@@ -37,11 +37,9 @@ export default (): Hook => {
       const existingBookings = await app.service("bookings").Model.find({
         room,
         dates: {
-          $not: {
-            $elemMatch: {
-              $gte: startDate,
-              $lte: endDate,
-            },
+          $elemMatch: {
+            $lte: endDate,
+            $gte: startDate,
           },
         },
         status: { $ne: BookingStatus.CANCELLED },

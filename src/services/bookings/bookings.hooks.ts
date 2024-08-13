@@ -5,20 +5,25 @@ import { discard, iff } from "feathers-hooks-common";
 import disallowIfApproved from "../../hooks/disallow-if-approved";
 import { HookContext } from "../../app";
 import disallowIfBooked from "../../hooks/disallow-if-booked";
+import RolesEnum from "../../constants/roles.enum";
+import setQuery from "../../constants/setQuery";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
 const isUserType = (context: HookContext): boolean => {
   const { user } = context.params;
-  return user?.type === "user";
+  console.log(user?.type === 1);
+  return user?.type === RolesEnum.USER;
 };
 
 export default {
   before: {
     all: [authenticate("jwt")],
-    find: [handleSoftDelete()],
-    get: [handleSoftDelete()],
+    // @ts-expect-error old defs in .d.ts lib files
+    find: [iff(isUserType, setQuery("user", "_id")), handleSoftDelete()],
+    // @ts-expect-error old defs in .d.ts lib files
+    get: [iff(isUserType, setQuery("user")), handleSoftDelete()],
     /**
      * @zakhaev26
      * @todo

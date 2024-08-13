@@ -38,10 +38,13 @@ export default function (app: Application): Model<any> {
           type: Date,
         },
       ],
-      approvedBy: {
+      lastManagedBy: {
         type: ObjectId,
         ref: "users",
       },
+      /**
+       * flag to determine whether the booking was done by superadmin,or not
+       */
       doneByAdmin: {
         type: Boolean,
         default: false,
