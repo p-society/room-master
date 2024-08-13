@@ -1,22 +1,22 @@
-import * as authentication from '@feathersjs/authentication';
-import handleSoftDelete from '../../hooks/handleSoftDelete';
-import setCreatedBy from '../../hooks/setCreatedBy';
-import { discard, iff } from 'feathers-hooks-common';
-import disallowIfApproved from '../../hooks/disallow-if-approved';
-import { HookContext } from '../../app';
-import disallowIfBooked from '../../hooks/disallow-if-booked';
+import * as authentication from "@feathersjs/authentication";
+import handleSoftDelete from "../../hooks/handleSoftDelete";
+import setCreatedBy from "../../hooks/setCreatedBy";
+import { discard, iff } from "feathers-hooks-common";
+import disallowIfApproved from "../../hooks/disallow-if-approved";
+import { HookContext } from "../../app";
+import disallowIfBooked from "../../hooks/disallow-if-booked";
 // Don't remove this comment. It's needed to format import lines nicely.
 
 const { authenticate } = authentication.hooks;
 
 const isUserType = (context: HookContext): boolean => {
   const { user } = context.params;
-  return user?.type === 'user';
+  return user?.type === "user";
 };
 
 export default {
   before: {
-    all: [authenticate('jwt')],
+    all: [authenticate("jwt")],
     find: [handleSoftDelete()],
     get: [handleSoftDelete()],
     /**
@@ -27,13 +27,13 @@ export default {
      * so a generalized dummy user to be created and ported here,
      * can only be done via SUPER_ADMIN
      */
-    create: [disallowIfBooked(), setCreatedBy('user')],
+    create: [disallowIfBooked(), discard("status"), setCreatedBy()],
     update: [],
     patch: [
       disallowIfApproved(),
       handleSoftDelete(),
       // @ts-expect-error old defs in .d.ts lib files
-      iff(isUserType, discard('paid', 'doneByAdmin', 'status', 'approvedBy')),
+      iff(isUserType, discard("paid", "doneByAdmin", "status", "approvedBy")),
     ],
     remove: [handleSoftDelete()],
   },

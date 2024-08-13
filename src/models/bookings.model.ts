@@ -4,13 +4,13 @@
 // for more of what you can do here.
 import BookingStatus, {
   BookingStatusList,
-} from '../constants/booking-status.enum';
-import { Application } from '../declarations';
-import { Model, Mongoose } from 'mongoose';
+} from "../constants/booking-status.enum";
+import { Application } from "../declarations";
+import { Model, Mongoose } from "mongoose";
 
 export default function (app: Application): Model<any> {
-  const modelName = 'bookings';
-  const mongooseClient: Mongoose = app.get('mongooseClient');
+  const modelName = "bookings";
+  const mongooseClient: Mongoose = app.get("mongooseClient");
   const { Schema } = mongooseClient;
   const { ObjectId } = Schema.Types;
 
@@ -25,12 +25,12 @@ export default function (app: Application): Model<any> {
          * can only be done via SUPER_ADMIN
          */
         type: ObjectId,
-        ref: 'users',
+        ref: "users",
         required: true,
       },
       room: {
         type: ObjectId,
-        ref: 'rooms',
+        ref: "rooms",
         required: true,
       },
       dates: [
@@ -40,8 +40,7 @@ export default function (app: Application): Model<any> {
       ],
       approvedBy: {
         type: ObjectId,
-        ref: 'users',
-        required: true,
+        ref: "users",
       },
       doneByAdmin: {
         type: Boolean,
@@ -56,6 +55,11 @@ export default function (app: Application): Model<any> {
         enum: BookingStatusList,
         default: BookingStatus.PENDING,
       },
+      createdBy: {
+        type: ObjectId,
+        ref: "users",
+        required: true,
+      },
       deleted: {
         type: Boolean,
         index: true,
@@ -63,7 +67,7 @@ export default function (app: Application): Model<any> {
       },
       deletedBy: {
         type: ObjectId,
-        ref: 'users',
+        ref: "users",
       },
       deletedAt: {
         type: Date,

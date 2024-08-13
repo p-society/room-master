@@ -1,7 +1,7 @@
 import * as authentication from '@feathersjs/authentication';
 import setCreatedBy from '../../hooks/setCreatedBy';
 import handleSoftDelete from '../../hooks/handleSoftDelete';
-import RoleGuard from '../../hooks/roleGuard';
+import RoleGuard from '../../hooks/RoleGuard';
 import RolesEnum from '../../constants/roles.enum';
 // Don't remove this comment. It's needed to format import lines nicely.
 
