@@ -1,45 +1,44 @@
-# room-master-core-api
+<h1 align="center">
+<!-- 	<img width="300" src="https://github.com/gCBS/gCBS_native/blob/stable/assets/gCBSColorPurp@3x.png?raw=true" alt="gCBS"> -->
+      Room Master - IIIT-Bh 
+	<br>
+</h1>
 
-> Core API for Guest House Management for IIIT-Bh
 
-## About
+<div align="center">
+Room Master is a Guest House Booking / Ticketing Software for IIIT-Bhubaneswar.
 
-This project uses [Feathers](http://feathersjs.com). An open source web framework for building modern real-time applications.
+<h3>P-Society Handles</h3>
+<h3 align="center">
+	<a href="https://dev-psoc.netlify.app/">Website</a>
+	<span> | </span>
+	<a href="https://discord.gg/UhmKJGMnan">Community Discord</a>
+	<span> | </span>
+	<a href="https://github.com/p-society/gc-server/blob/main/docs/CONTRIBUTING.md">Contribute</a>
+</h3>
 
-## Getting Started
+</div>
 
-Getting up and running is as easy as 1, 2, 3.
+----------------------------------------
+<div align="center">
+  
+**p-society/room-master** is the simple API server for both web and app platforms. The application server is built using Feathers.js(v4),MongoDB and Redis. The web version is being developed using Next.js and Vercel v0, while the app version is built using Flutter.
+</div>
+<div align="center">
+<br/>
+<img src='https://skillicons.dev/icons?i=nodejs,mongodb,redis' ></img>
+<img src='https://github.com/p-society/raag/assets/119437069/5f30138e-fa76-4947-946e-603d2de1550f' width='50' height='50' style='border-radius: 10px;'>
 
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
+</div>
+<br/>  
 
-    ```
-    cd path/to/room-master-core-api
-    npm install
-    ```
+### Current contributors <a name="Current contributors"></a>
 
-3. Start your app
+<a href="https://github.com/gCBS/gCBS/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=p-society/room-master" />
+</a>
 
-    ```
-    npm start
-    ```
+Made with [contributors-img](https://contributors-img.web.app).
+# License <a name="License"></a>
 
-## Testing
-
-Simply run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-Feathers has a powerful command line interface. Here are a few things it can do:
-
-```
-$ npm install -g @feathersjs/cli          # Install Feathers CLI
-
-$ feathers generate service               # Generate a new Service
-$ feathers generate hook                  # Generate a new Hook
-$ feathers help                           # Show all commands
-```
-
-## Help
-
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+Room Master Core-API  is licensed under [Apache License](https://github.com/p-society/room-master/blob/master/LICENSE)
