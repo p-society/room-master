@@ -73,6 +73,7 @@ export class UpdateBookingStatus implements ServiceMethods<Data> {
     if (data.paid) reqBody["paid"] = data.paid;
     if (data.status) reqBody["status"] = data.status;
 
+    reqBody["lastManagedBy"] = params.user._id;
     const resp = await this.app.service("bookings")._patch(id, reqBody);
     return resp;
   }
