@@ -32,6 +32,9 @@ export default function (app: Application): Model<any> {
       password: {
         type: String,
       },
+      phone: {
+        type: String,
+      },
       type: {
         type: Number,
         enum: RolesEnumList,
