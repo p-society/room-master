@@ -23,7 +23,7 @@ export default {
     // @ts-expect-error old defs in .d.ts lib files
     find: [iff(isUserType, setQuery("user", "_id")), handleSoftDelete()],
     // @ts-expect-error old defs in .d.ts lib files
-    get: [iff(isUserType, setQuery("user")), handleSoftDelete()],
+    get: [iff(isUserType, setQuery("user", "_id")), handleSoftDelete()],
     /**
      * @zakhaev26
      * @todo
