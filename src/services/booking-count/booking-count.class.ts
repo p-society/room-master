@@ -1,7 +1,7 @@
-import { Id, NullableId, Params, ServiceMethods } from "@feathersjs/feathers";
-import { Application } from "../../declarations";
-import { BadRequest, NotAuthenticated } from "@feathersjs/errors";
-import BookingStatus from "../../constants/booking-status.enum";
+import { Id, NullableId, Params, ServiceMethods } from '@feathersjs/feathers';
+import { Application } from '../../declarations';
+import { BadRequest, NotAuthenticated } from '@feathersjs/errors';
+import BookingStatus from '../../constants/booking-status.enum';
 
 interface Data {}
 
@@ -21,20 +21,19 @@ export class BookingCount implements ServiceMethods<Data> {
     const { query } = params;
 
     if (!query || !query.month)
-      throw new BadRequest("Please provide month to check for bookings.");
+      throw new BadRequest('Please provide month to check for bookings.');
 
     const month = parseInt(query.month, 10);
     if (isNaN(month) || month < 1 || month > 12) {
       throw new BadRequest(
-        "Invalid month. It should be a number between 1 and 12."
+        'Invalid month. It should be a number between 1 and 12.'
       );
     }
 
     const year = new Date().getFullYear();
     const startDate = new Date(year, month - 1, 1);
     const endDate = new Date(year, month, 0);
-    // @ts-ignore
-    const bookings = await this.app.service("bookings").Model.aggregate([
+    const bookings = await this.app.service('bookings').Model.aggregate([
       {
         $match: {
           deleted: { $ne: true },
@@ -42,7 +41,7 @@ export class BookingCount implements ServiceMethods<Data> {
         },
       },
       {
-        $unwind: "$dates",
+        $unwind: '$dates',
       },
       {
         $match: {
@@ -51,23 +50,23 @@ export class BookingCount implements ServiceMethods<Data> {
       },
       {
         $project: {
-          day: { $dayOfMonth: "$dates" },
+          day: { $dayOfMonth: '$dates' },
           status: 1,
         },
       },
       {
         $group: {
-          _id: { day: "$day", status: "$status" },
+          _id: { day: '$day', status: '$status' },
           count: { $sum: 1 },
         },
       },
       {
         $group: {
-          _id: "$_id.day",
+          _id: '$_id.day',
           counts: {
             $push: {
-              status: "$_id.status",
-              count: "$count",
+              status: '$_id.status',
+              count: '$count',
             },
           },
         },
@@ -75,15 +74,15 @@ export class BookingCount implements ServiceMethods<Data> {
       {
         $project: {
           _id: 0,
-          day: "$_id",
+          day: '$_id',
           counts: {
             $arrayToObject: {
               $map: {
-                input: "$counts",
-                as: "item",
+                input: '$counts',
+                as: 'item',
                 in: {
-                  k: "$$item.status",
-                  v: "$$item.count",
+                  k: '$$item.status',
+                  v: '$$item.count',
                 },
               },
             },

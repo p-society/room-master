@@ -1,16 +1,16 @@
-import { Hook } from "@feathersjs/feathers";
-import { BadRequest } from "@feathersjs/errors";
-import RolesEnum from "../../../constants/roles.enum";
+import { Hook } from '@feathersjs/feathers';
+import { BadRequest } from '@feathersjs/errors';
+import RolesEnum from '../../../constants/roles.enum';
 
 const validateOTP = (): Hook => async (context) => {
   const { app, data, params } = context;
-  const authService = app.service("authentication");
+  const authService = app.service('authentication');
   const authHeader = params.headers && params.headers.authorization;
 
-  if (authHeader && authHeader.startsWith("Bearer ")) {
-    const accessToken = authHeader.split(" ")[1];
+  if (authHeader && authHeader.startsWith('Bearer ')) {
+    const accessToken = authHeader.split(' ')[1];
     const authResult = await authService.create({
-      strategy: "jwt",
+      strategy: 'jwt',
       accessToken: accessToken,
     });
     // console.log(authResult, accessToken)
@@ -21,10 +21,10 @@ const validateOTP = (): Hook => async (context) => {
     }
   }
 
-  const authCodeService = app.service("otp");
+  const authCodeService = app.service('otp');
   const authCode = await authCodeService._find({
     query: {
-      type: "email",
+      type: 'email',
       dest: data.email,
       $sort: {
         createdAt: -1,
@@ -34,7 +34,7 @@ const validateOTP = (): Hook => async (context) => {
   });
 
   if (!authCode[0]) {
-    throw new BadRequest("invalid OTP");
+    throw new BadRequest('invalid OTP');
   }
   console.log(authCode[0].otp, data.otp);
   if (
@@ -45,10 +45,10 @@ const validateOTP = (): Hook => async (context) => {
        * remove '0000' default code.
        * for dev mode..!
        */
-      data.otp === "0000"
+      data.otp === '0000'
     )
   ) {
-    throw new BadRequest("invalid OTP");
+    throw new BadRequest('invalid OTP');
   }
 
   const EXPIRATION_OFFSET: number = 10; // 10 Minutes
@@ -56,7 +56,7 @@ const validateOTP = (): Hook => async (context) => {
   if (
     new Date(authCode[0].createdAt.getTime() + EXPIRATION_OFFSET) > new Date()
   ) {
-    throw new BadRequest("This OTP is expired.Please try again.");
+    throw new BadRequest('This OTP is expired.Please try again.');
   }
   return context;
 };

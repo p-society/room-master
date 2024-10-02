@@ -4,13 +4,13 @@
 // for more of what you can do here.
 import BookingStatus, {
   BookingStatusList,
-} from "../constants/booking-status.enum";
-import { Application } from "../declarations";
-import { Model, Mongoose } from "mongoose";
+} from '../constants/booking-status.enum';
+import { Application } from '../declarations';
+import { Model, Mongoose } from 'mongoose';
 
 export default function (app: Application): Model<any> {
-  const modelName = "bookings";
-  const mongooseClient: Mongoose = app.get("mongooseClient");
+  const modelName = 'bookings';
+  const mongooseClient: Mongoose = app.get('mongooseClient');
   const { Schema } = mongooseClient;
   const { ObjectId } = Schema.Types;
 
@@ -25,12 +25,16 @@ export default function (app: Application): Model<any> {
          * can only be done via SUPER_ADMIN
          */
         type: ObjectId,
-        ref: "users",
+        ref: 'users',
         required: true,
       },
       room: {
         type: ObjectId,
-        ref: "rooms",
+        ref: 'rooms',
+        required: true,
+      },
+      roomNumber: {
+        type: String,
         required: true,
       },
       dates: [
@@ -40,7 +44,7 @@ export default function (app: Application): Model<any> {
       ],
       lastManagedBy: {
         type: ObjectId,
-        ref: "users",
+        ref: 'users',
       },
       /**
        * flag to determine whether the booking was done by superadmin,or not
@@ -60,7 +64,7 @@ export default function (app: Application): Model<any> {
       },
       createdBy: {
         type: ObjectId,
-        ref: "users",
+        ref: 'users',
         required: true,
       },
       deleted: {
@@ -70,7 +74,7 @@ export default function (app: Application): Model<any> {
       },
       deletedBy: {
         type: ObjectId,
-        ref: "users",
+        ref: 'users',
       },
       deletedAt: {
         type: Date,

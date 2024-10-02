@@ -4,9 +4,9 @@ import {
   Paginated,
   Params,
   ServiceMethods,
-} from "@feathersjs/feathers";
-import { Application } from "../../declarations";
-import { BadRequest } from "@feathersjs/errors";
+} from '@feathersjs/feathers';
+import { Application } from '../../declarations';
+import { BadRequest } from '@feathersjs/errors';
 
 interface Data {}
 
@@ -38,26 +38,26 @@ export class AvailableRooms implements ServiceMethods<Data> {
     const { startDate, endDate } = params?.query as QueryInterface;
 
     if (!startDate || !endDate)
-      throw new BadRequest("Please provide startDate and endDate");
+      throw new BadRequest('Please provide startDate and endDate');
 
     const start = new Date(startDate);
     const end = new Date(endDate);
 
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
-      throw new BadRequest("Invalid date format");
+      throw new BadRequest('Invalid date format');
     }
 
-    const roomsModel = this.app.service("rooms").Model;
+    const roomsModel = this.app.service('rooms').Model;
 
     // rooms that are not booked during the specified dates
     const roomsWithOrWithoutBookings = await roomsModel
       .aggregate([
         {
           $lookup: {
-            from: "bookings",
-            localField: "_id",
-            foreignField: "room",
-            as: "bookings",
+            from: 'bookings',
+            localField: '_id',
+            foreignField: 'room',
+            as: 'bookings',
           },
         },
         {

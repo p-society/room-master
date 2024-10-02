@@ -1,6 +1,6 @@
-import { BadRequest, NotAuthenticated } from "@feathersjs/errors";
-import { Hook, HookContext } from "@feathersjs/feathers";
-import BookingStatus from "../constants/booking-status.enum";
+import { BadRequest, NotAuthenticated } from '@feathersjs/errors';
+import { Hook, HookContext } from '@feathersjs/feathers';
+import BookingStatus from '../constants/booking-status.enum';
 
 export default (): Hook => {
   /**
@@ -19,14 +19,14 @@ export default (): Hook => {
     if (!user) throw new NotAuthenticated();
     if (!data.room || !data.dates)
       throw new BadRequest(
-        "Please provide room and dates to create the booking."
+        'Please provide room and dates to create the booking.'
       );
 
-    let { dates } = data;
+    const { dates } = data;
     const { room } = data;
     if (!Array.isArray(dates) || dates.length !== 2) {
       throw new BadRequest(
-        "Please provide a valid date range with start and end dates."
+        'Please provide a valid date range with start and end dates.'
       );
     }
     const [startDate, endDate] = dates.map(
@@ -34,7 +34,7 @@ export default (): Hook => {
     );
 
     try {
-      const existingBookings = await app.service("bookings").Model.find({
+      const existingBookings = await app.service('bookings').Model.find({
         room,
         dates: {
           $elemMatch: {
@@ -49,7 +49,7 @@ export default (): Hook => {
       console.log(existingBookings);
       if (existingBookings.length > 0) {
         throw new BadRequest(
-          "This room is already booked for the specified dates."
+          'This room is already booked for the specified dates.'
         );
       }
 
