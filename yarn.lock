@@ -1486,10 +1486,10 @@
   dependencies:
     debug "^4.3.3"
 
-"@feathersjs/errors@^5.0.21":
-  version "5.0.21"
-  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-5.0.21.tgz"
-  integrity sha512-HDuhPbR8XUJjGnNkS8ushQmFJuVW6dZz79dT7oflSSP/m1RvQDNtA8DIXxTpTlM9RIYZQbflWwc7oVBx/ikxSw==
+"@feathersjs/errors@^5.0.21", "@feathersjs/errors@^5.0.31":
+  version "5.0.31"
+  resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-5.0.31.tgz#0498ca65d8025063fc11bfc983657e37944b17b3"
+  integrity sha512-+ar4aq8Ka1EtTGH1+BBIDW12nfNJKnnzGdevoCmSmfHVAdb66se5fWv3I4rShvnguYyeUg8rkICJYf7AEcrPiw==
 
 "@feathersjs/express@^4.5.15", "@feathersjs/express@^4.5.18":
   version "4.5.18"
